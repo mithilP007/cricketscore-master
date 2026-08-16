@@ -167,5 +167,35 @@
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
+    font-family: var(--font-sans);
   }
+}
+
+@utility pitch-gradient {
+  background-image: var(--gradient-pitch);
+}
+
+@utility stat-num {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+@keyframes score-pop {
+  0% { transform: scale(1); }
+  40% { transform: scale(1.14); color: var(--color-gold-400); }
+  100% { transform: scale(1); }
+}
+
+@utility animate-score-pop {
+  animation: score-pop 0.45s ease-out;
+}
+
+@keyframes ball-arc {
+  0% { transform: translate(0,0) rotate(0deg); opacity: 0; }
+  15% { opacity: 1; }
+  100% { transform: translate(60vw, -22vh) rotate(720deg); opacity: 0; }
+}
+
+@utility animate-ball-arc {
+  animation: ball-arc 3.6s cubic-bezier(0.3, 0, 0.7, 1) infinite;
 }
