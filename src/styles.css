@@ -4,6 +4,27 @@
 
 @custom-variant dark (&:is(.dark *));
 
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+  --color-cricket-50: oklch(0.982 0.018 155);
+  --color-cricket-100: oklch(0.958 0.043 154);
+  --color-cricket-200: oklch(0.912 0.08 154);
+  --color-cricket-300: oklch(0.855 0.13 152);
+  --color-cricket-400: oklch(0.78 0.17 152);
+  --color-cricket-500: oklch(0.72 0.19 149);
+  --color-cricket-600: oklch(0.63 0.17 149);
+  --color-cricket-700: oklch(0.52 0.14 150);
+  --color-cricket-800: oklch(0.43 0.11 151);
+  --color-cricket-900: oklch(0.36 0.09 152);
+  --color-cricket-950: oklch(0.24 0.07 153);
+  --color-gold-400: oklch(0.86 0.17 92);
+  --color-gold-500: oklch(0.79 0.16 88);
+  --color-gold-600: oklch(0.68 0.14 85);
+  --color-surface: var(--surface);
+  --color-surface-elevated: var(--surface-elevated);
+}
+
 /*
  * Design system definition.
  *
@@ -63,25 +84,29 @@
 
 :root {
   --radius: 0.625rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.129 0.042 264.695);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.129 0.042 264.695);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.129 0.042 264.695);
-  --primary: oklch(0.208 0.042 265.755);
-  --primary-foreground: oklch(0.984 0.003 247.858);
-  --secondary: oklch(0.968 0.007 247.896);
-  --secondary-foreground: oklch(0.208 0.042 265.755);
-  --muted: oklch(0.968 0.007 247.896);
-  --muted-foreground: oklch(0.554 0.046 257.417);
-  --accent: oklch(0.968 0.007 247.896);
-  --accent-foreground: oklch(0.208 0.042 265.755);
-  --destructive: oklch(0.577 0.245 27.325);
-  --destructive-foreground: oklch(0.984 0.003 247.858);
-  --border: oklch(0.929 0.013 255.508);
-  --input: oklch(0.929 0.013 255.508);
-  --ring: oklch(0.704 0.04 256.788);
+  --background: oklch(0.145 0 0);
+  --foreground: oklch(0.97 0 0);
+  --surface: oklch(0.205 0 0);
+  --surface-elevated: oklch(0.262 0 0);
+  --card: oklch(0.205 0 0);
+  --card-foreground: oklch(0.97 0 0);
+  --popover: oklch(0.205 0 0);
+  --popover-foreground: oklch(0.97 0 0);
+  --primary: oklch(0.63 0.17 149);
+  --primary-foreground: oklch(0.99 0 0);
+  --secondary: oklch(0.262 0 0);
+  --secondary-foreground: oklch(0.97 0 0);
+  --muted: oklch(0.262 0 0);
+  --muted-foreground: oklch(0.7 0 0);
+  --accent: oklch(0.79 0.16 88);
+  --accent-foreground: oklch(0.2 0.02 90);
+  --destructive: oklch(0.6 0.22 27);
+  --destructive-foreground: oklch(0.98 0 0);
+  --border: oklch(0.33 0 0);
+  --input: oklch(0.33 0 0);
+  --ring: oklch(0.72 0.19 149);
+  --gradient-pitch: linear-gradient(160deg, oklch(0.36 0.09 152) 0%, oklch(0.2 0.04 153) 45%, oklch(0.145 0 0) 100%);
+  --shadow-elevated: 0 18px 45px -18px oklch(0.72 0.19 149 / 0.35);
   --chart-1: oklch(0.646 0.222 41.116);
   --chart-2: oklch(0.6 0.118 184.704);
   --chart-3: oklch(0.398 0.07 227.392);
@@ -98,8 +123,10 @@
 }
 
 .dark {
-  --background: oklch(0.129 0.042 264.695);
-  --foreground: oklch(0.984 0.003 247.858);
+  --background: oklch(0.145 0 0);
+  --foreground: oklch(0.97 0 0);
+  --surface: oklch(0.205 0 0);
+  --surface-elevated: oklch(0.262 0 0);
   --card: oklch(0.208 0.042 265.755);
   --card-foreground: oklch(0.984 0.003 247.858);
   --popover: oklch(0.208 0.042 265.755);
@@ -140,5 +167,35 @@
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
+    font-family: var(--font-sans);
   }
+}
+
+@utility pitch-gradient {
+  background-image: var(--gradient-pitch);
+}
+
+@utility stat-num {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+@keyframes score-pop {
+  0% { transform: scale(1); }
+  40% { transform: scale(1.14); color: var(--color-gold-400); }
+  100% { transform: scale(1); }
+}
+
+@utility animate-score-pop {
+  animation: score-pop 0.45s ease-out;
+}
+
+@keyframes ball-arc {
+  0% { transform: translate(0,0) rotate(0deg); opacity: 0; }
+  15% { opacity: 1; }
+  100% { transform: translate(60vw, -22vh) rotate(720deg); opacity: 0; }
+}
+
+@utility animate-ball-arc {
+  animation: ball-arc 3.6s cubic-bezier(0.3, 0, 0.7, 1) infinite;
 }
