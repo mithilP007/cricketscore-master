@@ -12,7 +12,7 @@ export interface BallEvent {
   id: string;
   type: BallEventType;
   runs: number;
-  dismissal?: DismissalType;
+  dismissal?: DismissalType | undefined;
   batsmanId: string;
   bowlerId: string;
   over: number;

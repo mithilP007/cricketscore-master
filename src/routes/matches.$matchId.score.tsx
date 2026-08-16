@@ -81,7 +81,7 @@ function ScoringScreen() {
   const [dismissal, setDismissal] = useState<DismissalType>("Bowled");
   const [flash, setFlash] = useState(0);
 
-  const state = history[history.length - 1];
+  const state = history[history.length - 1]!;
   const striker = state.batsmen.find((b) => b.id === state.strikerId)!;
   const nonStriker = state.batsmen.find((b) => b.id === state.nonStrikerId)!;
   const bowler = state.bowlers.find((b) => b.id === state.bowlerId)!;
@@ -92,7 +92,7 @@ function ScoringScreen() {
   );
 
   function score(input: ScoreInput) {
-    setHistory((h) => [...h, applyBall(h[h.length - 1], input)]);
+    setHistory((h) => [...h, applyBall(h[h.length - 1]!, input)]);
     setFlash((f) => f + 1);
     if (input.type === "run" && input.runs === 4) toast.success("FOUR! 🏏");
     if (input.type === "run" && input.runs === 6) toast.success("SIX! 🎉");
@@ -100,7 +100,10 @@ function ScoringScreen() {
   }
 
   function undo() {
-    if (history.length === 1) return toast("Nothing to undo");
+    if (history.length === 1) {
+      toast("Nothing to undo");
+      return;
+    }
     setHistory((h) => h.slice(0, -1));
     toast("Last ball undone");
   }
