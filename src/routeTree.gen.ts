@@ -10,33 +10,43 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as MatchesMatchIdScoreRouteImport } from './routes/matches.$matchId.score'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const MatchesMatchIdScoreRoute = MatchesMatchIdScoreRouteImport.update({
+  id: '/matches/$matchId/score',
+  path: '/matches/$matchId/score',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/matches/$matchId/score': typeof MatchesMatchIdScoreRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/matches/$matchId/score': typeof MatchesMatchIdScoreRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/matches/$matchId/score': typeof MatchesMatchIdScoreRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/matches/$matchId/score'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/matches/$matchId/score'
+  id: '__root__' | '/' | '/matches/$matchId/score'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  MatchesMatchIdScoreRoute: typeof MatchesMatchIdScoreRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +58,19 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/matches/$matchId/score': {
+      id: '/matches/$matchId/score'
+      path: '/matches/$matchId/score'
+      fullPath: '/matches/$matchId/score'
+      preLoaderRoute: typeof MatchesMatchIdScoreRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  MatchesMatchIdScoreRoute: MatchesMatchIdScoreRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
